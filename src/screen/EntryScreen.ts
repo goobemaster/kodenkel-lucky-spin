@@ -22,20 +22,43 @@ export class EntryScreen extends Screen {
         });
 
         surface.onClickOrTouch('#entry-box', () => {
-            this.entryInput.focus();
-            this.entryInput.click();
-            this.entryInputButton.click();            
+            if (Application.isMobile) {
+                this.entryInput.style.display = 'block';
+                this.entryInput.style.zIndex = '0';
+                this.entryInput.style.width = '80%';
+                this.entryInput.style.height = '30px';
+                this.entryInput.style.top = '50%';
+                this.entryInput.click();
+            } else {
+                this.entryInput.focus();
+                this.entryInput.click();
+                this.entryInputButton.click();
+            }         
         })
         SVGSurface.onClickOrTouchElement(this.entryText, () => {
-            this.entryInput.focus();
-            this.entryInput.click();
-            this.entryInputButton.click();
+            if (Application.isMobile) {
+                this.entryInput.style.display = 'block';
+                this.entryInput.style.zIndex = '0';
+                this.entryInput.style.width = '80%';
+                this.entryInput.style.height = '30px';
+                this.entryInput.style.top = '50%';
+                this.entryInput.click();
+            } else {
+                this.entryInput.focus();
+                this.entryInput.click();
+                this.entryInputButton.click();
+            }
         });
 
-        this.entryInputButton.addEventListener('click', () => {
-            this.entryInput.focus();
-            this.entryInput.click();
-        });
+        if (!Application.isMobile) {
+            this.entryInputButton.addEventListener('click', () => {
+                this.entryInput.focus();
+                this.entryInput.click();
+            });
+        } else {
+            this.entryText.addClass('hidden');
+            surface.hide('#entry-box');
+        }
 
         this.entryInput.addEventListener('keyup', (event) => {
             if (event.keyCode === 13) {
@@ -52,12 +75,27 @@ export class EntryScreen extends Screen {
 
         this.entryInput.value = '';
         this.entryText.node.textContent = '|';
-        this.entryInput.focus();
-        this.entryInput.click();
-        this.entryInputButton.click();
+
+        if (Application.isMobile) {
+            this.entryInput.style.display = 'block';
+            this.entryInput.style.zIndex = '0';
+            this.entryInput.style.width = '80%';
+            this.entryInput.style.height = '30px';
+            this.entryInput.style.top = '50%';
+            this.entryInput.click();
+        } else {
+            this.entryInput.focus();
+            this.entryInput.click();
+            this.entryInputButton.click();
+        }
     }
 
     public onDeactivation() {
         this.hide();
+
+        this.entryInput.style.display = 'inline';
+        this.entryInput.style.zIndex = '-1';
+        this.entryInput.style.width = '0px';
+        this.entryInput.style.top = '0';
     }
 }
