@@ -59,8 +59,10 @@ export class WheelScreen extends Screen {
         this.wheel = surface.query('#gwheel');
 
         SVGSurface.onClickOrTouchElement(this.spinButton, () => {
-            this.spinInProgress = false;
-            this.wheelAnimationTick(this.getInitialSpeed());
+            if (this.spinInProgress) {
+                this.spinInProgress = false;
+                this.wheelAnimationTick(this.getInitialSpeed());
+            }
         });
     }
 

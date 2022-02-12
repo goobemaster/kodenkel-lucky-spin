@@ -93,6 +93,10 @@ export class EntryScreen extends Screen {
     public onDeactivation() {
         this.hide();
 
+        if (this.entryInput === undefined) {
+            this.entryInput = document.querySelector('#entry');
+        }
+
         this.entryInput.style.display = 'inline';
         this.entryInput.style.zIndex = '-1';
         this.entryInput.style.width = '0px';
